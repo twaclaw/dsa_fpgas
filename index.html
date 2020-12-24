@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>fpgas</title>
+
+	<link rel="stylesheet" href="revealjs/dist/reset.css">
+	<link rel="stylesheet" href="revealjs/dist/reveal.css">
+	<link rel="stylesheet" href="revealjs/dist/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="revealjs/plugin/highlight/monokai.css" id="highlight-theme">
+	<style>
+		div.footer {
+			margin-top: 600px;
+			font-size: 20px;
+		}
+
+		.reveal h1,
+		.reveal h2,
+		.reveal h3,
+		.reveal h4,
+		.reveal h5 {
+			text-transform: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- ----- -->
+			<!-- Beginning of slides -->
+			<!-- ----- -->
+			<section>
+				<h2>Acceleration of Algorithms with FPGAs</h2>
+				<p>Diego Sandoval</p>
+				<p>2021</p>
+			</section>
+
+			<section>
+				<!-- Motivation -->
+				<section>
+					<h2>Motivation</h2>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Why do we need acceleration?
+						* Latency
+						* Throughput
+						* Costs
+						* Energy 
+						* Productivity
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## In which domains?
+						* Machine Learning 
+						* HPC
+							* Genomics
+						* Finance
+						
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## How to achieve acceleration?
+						* A faster 🐎: increasing the clock frequency
+							- <p class="fragment">$2f_{\text{clk}} \sim \text{P}^{3}$</p>
+						* Parallelism 
+						* Using a different architecture
+					</textarea>
+				</section>
+		</div>
+	</div>
+
+	<script src="revealjs/dist/reveal.js"></script>
+	<script src="revealjs/plugin/notes/notes.js"></script>
+	<script src="revealjs/plugin/markdown/markdown.js"></script>
+	<script src="revealjs/plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+	<script src="revealjs/plugin/math/math.js"></script>
+	<script>
+		Reveal.initialize({
+			math: {
+				mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+				config: 'TeX-AMS_HTML-full',
+				// pass other options into `MathJax.Hub.Config()`
+				TeX: { Macros: { RR: "{\\bf R}" } }
+			},
+			plugins: [RevealMath]
+		});
+	</script>
+</body>
+
+</html>
