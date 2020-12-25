@@ -36,7 +36,7 @@
 			<!-- Beginning of slides -->
 			<!-- ----- -->
 			<section>
-				<h2>Acceleration of Algorithms with FPGAs</h2>
+				<h2>Acceleration of Algorithms with FPGAs 101</h2>
 				<p>Diego Sandoval</p>
 				<p>2021</p>
 			</section>
@@ -48,7 +48,7 @@
 				</section>
 				<section data-markdown>
 					<textarea data-template>
-						## Why do we need acceleration?
+						## <span style="color:darksalmon">Why</span> is acceleration required?
 						* Latency
 						* Throughput
 						* Costs
@@ -59,14 +59,14 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## In which domains?
+						## <span style="color:darksalmon">Where</span> is it needed?
 						* AI
 						* Computer vision
-						* Database (Graph DB, BigData queries, regex processing, etc.)
 						* HPC
 							* Genomics
 							* Seismic imaging
 						* Finance
+						* Database (Graph DB, BigData queries, regex processing)
 						* ...
 						
 					</textarea>
@@ -74,11 +74,11 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## How to achieve acceleration?
+						## <span style="color:darksalmon">How</span> to achieve acceleration?
 						* A faster 🐎: increasing the clock frequency 👎
-							*	<span class="fragment">Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{P}^{3}$ [[Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html) </span>
-						* <p class="fragment">Parallelism 👍</p>
-						* <p class="fragment">Using a "custom", specialized architecture 👍</p>
+							*	Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{P}^{3}$ [[Source: Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html)
+						* <span class="fragment highlight-green">Parallelism</span> 👍
+						* Using a "custom", specialized, <span class="fragment highlight-green">Domain Specific Architecture (DSA)</span> 👍
 					</textarea>
 				</section>
 
@@ -92,15 +92,15 @@
 					 Doing different tasks at the same time. Concurrency. Pipelining. 
 					</textarea>
 				</section>
-
+<!-- 
 				<section data-background-color="#228b22">
 					<h2 class="fragment strike">Domain Specific Architectures (DAS)</h2>
-				</section>
+				</section> -->
 
 				<section data-markdown>
 					<textarea data-template>
 					### Domain Specific Architectures
-					* ASICs
+					* ASICs (e.g. TPUs)
 					* FPGAs						
 					</textarea>
 				</section>
@@ -108,14 +108,14 @@
 
 			<section>
 				<!-- How to use fpgas to accelerate  -->
-				<section data-markdown data-background-color="#FF69B4">
+				<section data-markdown data-background-color="#EEE8AA">
 					<textarea data-template>
 						## Building accelerators with FPGAs
 					</textarea>
 				</section>
 				<section data-markdown data-background-color="#FFFFFF">
 					<textarea data-template>
-						## What is an FPGA?
+						## <span style="color:darksalmon">What</span> is an FPGA?
 						<span class="fragment highlight-red">Field Programmable</span> Generic Array
 						<ul class="fragment fade-in">
 							<li>A 32-bit processor (capable of running GNU/Linux)</li>
@@ -242,6 +242,211 @@
 					[Source: Digilent](https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/reference-manual)
 					</textarea>
 				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						* 650MHz dual-core Cortex-A9 processor
+						* DDR3 memory controller with 8 DMA channels
+						* Artix-7 familiy programmable logic
+							* 13300 logic slices, each with four 6-input LUTS and 8 flip-flops
+							* 630 KB of fast block RAM
+							* 220 DSP slices
+							* On-chip XADC
+					</textarea>
+				</section>
+
+
+
+
+				<section data-markdown>
+					<textarea data-template>
+						## Examples
+
+						*	[PYNQ Hello World: image resizing](https://github.com/Xilinx/PYNQ-HelloWorld)
+						*   [Binarized NN: CIFAR image recognition](https://github.com/Xilinx/BNN-PYNQ)
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown data-background-color="#FFD700">
+					<textarea data-template>
+						## High Level Synthesis
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">What</span> are FPGAs good at?
+						<img data-src="images/fetch1.png" height="200">
+
+						* Instruction Fetch (IF)
+						* Instruction Decode (ID)
+						* Execution
+						* Memory Operations
+						* Write Back (WB)
+
+						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">What</span> are FPGAs good at?
+
+						#### (Processor)
+						<pre><code class="c" data-trim data-noescape>
+							z = a + b;
+						</code></pre>
+					
+						<pre><code class="arm" data-trim data-noescape>
+							LD		a, $R1
+							LD		b, $R2
+							ADD  	 $R1,$R2,$R3
+							ST		$R3, c
+						</code></pre>
+
+						[[Source: Intro to HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+				
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">What</span> are FPGAs good at?
+
+						#### (Processor)
+						<img data-src="images/fetch2.png">
+
+						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">What</span> are FPGAs good at?
+						####  (FPGA)
+						<img data-src="images/fpga-exec.png" height="400">
+
+						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">Who</span> does offer FPGA-based services?
+
+					</textarea>
+				</section>
+
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">Why</span> didn't it happen earlier?
+
+						* Mismatch between software and hardware development worlds
+						* RTL languages (VHDL, Verilog) very different from C, C++
+						* Not as many hardware engineers as software developers
+						* Very high engineering costs
+					</textarea>
+				</section>
+
+
+				<section data-markdown>
+					<textarea data-template>
+					## <span style="color:darksalmon">Why</span> didn't it happen earlier?
+					#### Example: Edge detector implemented in Verilog
+
+					<pre><code class="verilog" data-trim data-noescape>
+					module edgeDetector
+					(
+						input wire clk, reset, 
+						input wire level, 
+						output reg Mealy_tick, Moore_tick
+					);
+						
+					localparam [1:0] // 3 states are required for Moore
+						zeroMoore = 2'b00,
+						edgeMoore = 2'b01, 
+						oneMoore = 2'b10;
+						
+					reg[1:0] stateMoore_reg, stateMoore_next;
+						
+					always @(posedge clk, posedge reset)
+					begin
+						if(reset) // go to state zero if rese
+							begin
+							stateMoore_reg <= zeroMoore;
+							end
+						else // otherwise update the states
+							begin
+							stateMoore_reg <= stateMoore_next;
+							end
+					end	
+
+					// Moore Design 
+					always @(stateMoore_reg, level)
+					begin
+						// store current state as next
+						stateMoore_next = stateMoore_reg; // required: when no case statement is satisfied
+
+						Moore_tick = 1'b0; // set tick to zero (so that 'tick = 1' is available for 1 cycle only)
+						case(stateMoore_reg)
+							zeroMoore: // if state is zero,
+								if(level) // and level is 1
+									stateMoore_next = edgeMoore; // then go to state edge.
+							edgeMoore:
+								begin
+									Moore_tick = 1'b1; // set the tick to 1.
+									if(level) // if level is 1, 
+										stateMoore_next = oneMoore; // go to state one,
+									else    
+										stateMoore_next = zeroMoore; // else go to state zero.
+								end
+							oneMoore: 
+								if(~level) // if level is 0,
+									stateMoore_next = zeroMoore; // then go to state zero.      
+						endcase
+					end
+					endmodule
+					</code></pre>
+
+					[[Source:verilogguide]](https://verilogguide.readthedocs.io/en/latest/verilog/fsm.html)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">Why</span> didn't it happen earlier?
+						<img data-src="images/time-to-market.png" height="400">
+
+						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## High Level Synthesis (HLS)
+
+						<img data-src="images/compile.png" height="480">
+
+						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+	
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## High Level Synthesis (HLS)
+
+						<img data-src="images/time-to-market-2.png" height="400">
+
+						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+
+
+
+
+	
 
 			</section>
 
