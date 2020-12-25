@@ -110,22 +110,138 @@
 				<!-- How to use fpgas to accelerate  -->
 				<section data-markdown data-background-color="#FF69B4">
 					<textarea data-template>
-						## How to use FPGAs to accelerate algorithms?
+						## Building accelerators with FPGAs
 					</textarea>
 				</section>
-				<section data-markdown>
+				<section data-markdown data-background-color="#FFFFFF">
 					<textarea data-template>
 						## What is an FPGA?
+						<span class="fragment highlight-red">Field Programmable</span> Generic Array
+						<ul class="fragment fade-in">
+							<li>A 32-bit processor (capable of running GNU/Linux)</li>
+							<li>A software-defined radio</li>
+							<li>A DPU (Deep Learning Processing Unit)</li>
+							<li>A video encoder</li>
+							<li>A spectrometer</li>
+							<li>An implementation of any computable problem</li>
+						</ul>
 					</textarea>
 				</section>
+
+				<section data-markdown data-background-color="#FFFFFF">
+					<textarea data-template>
+					## Basic Unit: LUT
+
+					<img data-src="images/fpga-lut.png">
+
+					[Source: pp4fpgas](http://kastner.ucsd.edu/hlsbook/)
+					</textarea>
+				</section>
+
+				<section data-markdown data-background-color="#FFFFFF">
+					<textarea data-template>
+					## Slices and Switchboxes 
+
+					<img data-src="images/fpga-slice.png">
+
+					[Source: pp4fpgas](http://kastner.ucsd.edu/hlsbook/)
+					</textarea>
+				</section>
+
+				<section data-markdown data-background-color="#FFFFFF">
+					<textarea data-template>
+					## Slices and Switchboxes 
+
+					<img data-src="images/fpga-structure.png" height="400">
+
+					[Source: pp4fpgas](http://kastner.ucsd.edu/hlsbook/)
+					</textarea>
+				</section>
+
+				<section data-markdown data-background-color="#FFFFFF">
+					<textarea data-template>
+					## Hardened Elements
+
+					<img data-src="images/fpga-processor.png">
+
+					[Source: pp4fpgas](http://kastner.ucsd.edu/hlsbook/)
+					</textarea>
+				</section>
+
+				<section data-markdown data-background-color="#FFFFFF">
+					<textarea data-template>
+					## Memory  Hierarchy
+					<table style="font-size:20pt;">
+						<thead>
+							<tr>
+								<th></th>
+								<th>External memory</th>
+								<th>BRAMs</th>
+								<th>FFs</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>count</td>
+								<td>1-4</td>
+								<td>thousands</td>
+								<td>millions</td>
+							</tr>
+							<tr>
+								<td>size</td>
+								<td>GBytes</td>
+								<td>KBytes</td>
+								<td>Bits</td>
+							</tr>
+							<tr>
+								<td>total size</td>
+								<td>GBytes</td>
+								<td>MBytes</td>
+								<td>100s of KBytes</td>
+							</tr>
+							<tr>
+								<td>width</td>
+								<td>8-64</td>
+								<td>1-16</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>total bandwidth</td>
+								<td>GBytes/s</td>
+								<td>TBytes/s</td>
+								<td>100s of TBytes/s</td>
+							</tr>
+						</tbody>
+					</table>
+
+					[Source: pp4fpgas](http://kastner.ucsd.edu/hlsbook/)
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<!-- How to use fpgas to accelerate  -->
+				<section data-markdown data-background-color="#FF69B4">
+					<textarea data-template>
+						## Building accelerators with FPGAs (Demo)
+					</textarea>
+				</section>
+
 				<section data-markdown>
 					<textarea data-template>
+					<img data-src="images/pynq-z1.png" height="500">
 
+					[Source: Digilent](https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/reference-manual)
 					</textarea>
 				</section>
 
+				<section data-markdown>
+					<textarea data-template>
+					<img data-src="images/pynq-z1-block.png" height="500">
 
-
+					[Source: Digilent](https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/reference-manual)
+					</textarea>
+				</section>
 
 			</section>
 
