@@ -60,10 +60,14 @@
 				<section data-markdown>
 					<textarea data-template>
 						## In which domains?
-						* Machine Learning 
+						* AI
+						* Computer vision
+						* Database (Graph DB, BigData queries, regex processing, etc.)
 						* HPC
 							* Genomics
+							* Seismic imaging
 						* Finance
+						* ...
 						
 					</textarea>
 				</section>
@@ -71,12 +75,60 @@
 				<section data-markdown>
 					<textarea data-template>
 						## How to achieve acceleration?
-						* A faster 🐎: increasing the clock frequency
-							- <p class="fragment">$2f_{\text{clk}} \sim \text{P}^{3}$</p>
-						* Parallelism 
-						* Using a different architecture
+						* A faster 🐎: increasing the clock frequency 👎
+							*	<span class="fragment">Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{P}^{3}$ [[Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html) </span>
+						* <p class="fragment">Parallelism 👍</p>
+						* <p class="fragment">Using a "custom", specialized architecture 👍</p>
 					</textarea>
 				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+					### Parallelism 
+
+					* [Data Parallelism](https://en.wikipedia.org/wiki/Data_parallelism): 
+					Doing the same task on different components of data. SIMD, GPUs.
+					* [Task Parallelism](https://en.wikipedia.org/wiki/Task_parallelism):
+					 Doing different tasks at the same time. Concurrency. Pipelining. 
+					</textarea>
+				</section>
+
+				<section data-background-color="#228b22">
+					<h2 class="fragment strike">Domain Specific Architectures (DAS)</h2>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+					### Domain Specific Architectures
+					* ASICs
+					* FPGAs						
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<!-- How to use fpgas to accelerate  -->
+				<section data-markdown data-background-color="#FF69B4">
+					<textarea data-template>
+						## How to use FPGAs to accelerate algorithms?
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## What is an FPGA?
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+
+					</textarea>
+				</section>
+
+
+
+
+			</section>
+
 		</div>
 	</div>
 
