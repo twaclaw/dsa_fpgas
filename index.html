@@ -66,6 +66,7 @@
 							* Genomics
 							* Seismic imaging
 						* Finance
+						* Security
 						* Database (Graph DB, BigData queries, regex processing)
 						* ...
 						
@@ -92,7 +93,7 @@
 					 Doing different tasks at the same time. Concurrency. Pipelining. 
 					</textarea>
 				</section>
-<!-- 
+				<!-- 
 				<section data-background-color="#228b22">
 					<h2 class="fragment strike">Domain Specific Architectures (DAS)</h2>
 				</section> -->
@@ -256,8 +257,6 @@
 				</section>
 
 
-
-
 				<section data-markdown>
 					<textarea data-template>
 						## Examples
@@ -308,7 +307,7 @@
 						[[Source: Intro to HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
-				
+
 
 				<section data-markdown>
 					<textarea data-template>
@@ -332,8 +331,17 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">Who</span> does offer FPGA-based services?
-
+						## <span style="color:darksalmon">Who</span> does offer FPGA-based services?							
+						* Intel (Altera)
+							* Microsoft (Intel)
+						* Both Intel and Xilinx
+							* Alibaba Cloud
+							* Nimbix
+						* Xilinx
+							* AWS
+							* Baidu
+							* Huawei
+							* Tencent Cloud
 					</textarea>
 				</section>
 
@@ -442,11 +450,274 @@
 						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
+			</section>
+
+			<section>
+				<!-- Example mmult HLS -->
+				<section data-markdown data-background-color="#F5FFFA">
+					<textarea data-template>
+						## <span style="color:darksalmon">How</span> to do it?
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Constructs that don't make sense in hardware
+
+						* System calls (e.g. `getc(), time())
+						* Dynamic memory usage
+						* Some pointers operations are not supported (e.g. arrays of pointers cannot point to additional pointers)
+						* Recursive functions
+
+						[[Source: Vivado HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Vivado HLS arbitrary precision types
+
+						<pre><code class="cpp" data-trim data-noescape>
+						#include "ap_int.h"
+
+						# define ap_uint<512> uint512_t;
+
+						ap_int<57> my_type;
+						ap_uint<1> bit = 0;
+						</code></pre>
+
+						<pre><code class="cpp" data-trim data-noescape>
+						#include "ap_fixed.h"
 
 
+						ap_ufixed<18,6,AP_RND> my_fixed_type;
+						</code></pre>
+
+					</textarea>
+				</section>
+
+				<!-- Example matrix multiplication -->
+
+				<section data-markdown>
+					<textarea data-template>
+						### Example: Matrix Multiplication (N=128) 
+
+						<pre><code class="cpp" data-trim data-noescape>
+							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
+							L1:
+								for (int m = 0; m < N; ++m) {
+								L2:
+								for (int n = 0; n < N; ++n) {
+									T sum = 0;
+								L3:
+									for (int k = 0; k < N; ++k)
+										sum += a[m][k] * b[k][n];
+
+									out[m][n] = sum;
+								}
+								}
+								return;
+							}
+						</code></pre>
+
+						[[github:twaclaw/matmult]](https://github.com/twaclaw/matmult)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						<pre><code class="txt" data-trim data-noescape>
+
+	+ Latency: 
+	* Summary: 
+	+----------+----------+-----------+-----------+----------+----------+---------+
+	|   Latency (cycles)  |   Latency (absolute)  |       Interval      | Pipeline|
+	|    min   |    max   |    min    |    max    |    min   |    max   |   Type  |
+	+----------+----------+-----------+-----------+----------+----------+---------+
+	|  25198849|  25198849|  0.252 sec|  0.252 sec|  25198850|  25198850|     none|
+	+----------+----------+-----------+-----------+----------+----------+---------+
 
 
-	
+	================================================================
+	== Utilization Estimates
+	================================================================
+	* Summary: 
+	+-----------------+---------+-----+--------+-------+-----+
+	|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
+	+-----------------+---------+-----+--------+-------+-----+
+	|DSP              |        -|    -|       -|      -|    -|
+	|Expression       |        -|    -|       0|    140|    -|
+	|FIFO             |        -|    -|       -|      -|    -|
+	|Instance         |        -|    3|     455|   1042|    -|
+	|Memory           |        -|    -|       -|      -|    -|
+	|Multiplexer      |        -|    -|       -|    101|    -|
+	|Register         |        -|    -|     207|      -|    -|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Total            |        0|    3|     662|   1283|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Available        |      280|  220|  106400|  53200|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Utilization (%)  |        0|    1|      ~0|      2|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+						</code></pre>
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Optimization 1: pipelining 
+						#### Pipelining of L3 is automatic
+
+						<pre><code class="cpp" data-trim data-noescape>
+							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
+							L1:
+								for (int m = 0; m < N; ++m) {
+								L2:
+								for (int n = 0; n < N; ++n) {
+							#pragma HLS PIPELINE II = 1
+									T sum = 0;
+								L3:
+									for (int k = 0; k < N; ++k)
+										sum += a[m][k] * b[k][n];
+
+									out[m][n] = sum;
+								}
+								}
+								return;
+							}
+						</code></pre>
+
+						<!-- [[github:twaclaw/matmult]](https://github.com/twaclaw/matmult) -->
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">What</span> is pipelining?
+						#### `y = (a * x) + b + c`
+						<img data-src="images/pipelining1.png" height="400">
+
+						[[Source: Intro to HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">What</span> is pipelining?
+
+						<img data-src="images/pipelining2.png">
+						
+						[[Source: Intro to HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+			
+				<section data-markdown>
+					<textarea data-template>
+						<pre><code class="txt" data-trim data-noescape>
+	+ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+---------+---------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |      Interval     | Pipeline|
+    |   min   |   max   |    min    |    max    |   min   |   max   |   Type  |
+    +---------+---------+-----------+-----------+---------+---------+---------+
+    |  1049161|  1049161|  10.492 ms|  10.492 ms|  1049162|  1049162|     none|
+    +---------+---------+-----------+-----------+---------+---------+---------+
+
+
+	================================================================
+	== Utilization Estimates
+	================================================================
+	* Summary: 
+	+-----------------+---------+-----+--------+-------+-----+
+	|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
+	+-----------------+---------+-----+--------+-------+-----+
+	|DSP              |        -|    -|       -|      -|    -|
+	|Expression       |        -|    -|       -|      -|    -|
+	|FIFO             |        -|    -|       -|      -|    -|
+	|Instance         |        -|   10|   12673|   9863|    -|
+	|Memory           |        -|    -|       -|      -|    -|
+	|Multiplexer      |        -|    -|       -|     14|    -|
+	|Register         |        -|    -|       3|      -|    -|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Total            |        0|   10|   12676|   9877|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Available        |      280|  220|  106400|  53200|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Utilization (%)  |        0|    4|      11|     18|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+							</code>
+							</pre>
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Optimization 2: array partitioning 
+
+						<pre><code class="cpp" data-trim data-noescape>
+							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
+
+							#pragma HLS ARRAY_PARTITION variable = a factor = 16 dim = 2 block
+							#pragma HLS ARRAY_PARTITION variable = a factor = 16 dim = 1 block
+
+							L1:
+								for (int m = 0; m < N; ++m) {
+								L2:
+								for (int n = 0; n < N; ++n) {
+							#pragma HLS PIPELINE II = 1
+									T sum = 0;
+								L3:
+									for (int k = 0; k < N; ++k)
+										sum += a[m][k] * b[k][n];
+
+									out[m][n] = sum;
+								}
+								}
+								return;
+							}
+						</code></pre>
+
+						<!-- [[github:twaclaw/matmult]](https://github.com/twaclaw/matmult) -->
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						<pre><code class="txt" data-trim data-noescape>
+	+ Latency: 
+	* Summary: 
+	+---------+---------+----------+----------+-------+-------+---------+
+	|  Latency (cycles) |  Latency (absolute) |    Interval   | Pipeline|
+	|   min   |   max   |    min   |    max   |  min  |  max  |   Type  |
+	+---------+---------+----------+----------+-------+-------+---------+
+	|    66180|    66180|  0.662 ms|  0.662 ms|  66180|  66180|     none|
+	+---------+---------+----------+----------+-------+-------+---------+
+						
+						
+	================================================================
+	== Utilization Estimates
+	================================================================
+	* Summary: 
+	+-----------------+---------+-----+--------+-------+-----+
+	|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
+	+-----------------+---------+-----+--------+-------+-----+
+	|DSP              |        -|    -|       -|      -|    -|
+	|Expression       |        -|    -|       0|    189|    -|
+	|FIFO             |        -|    -|       -|      -|    -|
+	|Instance         |        -|  160|   11136|  22752|    -|
+	|Memory           |        -|    -|       -|      -|    -|
+	|Multiplexer      |        -|    -|       -|   4900|    -|
+	|Register         |        -|    -|   25021|   4160|    -|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Total            |        0|  160|   36157|  32001|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Available        |      280|  220|  106400|  53200|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+	|Utilization (%)  |        0|   72|      33|     60|    0|
+	+-----------------+---------+-----+--------+-------+-----+
+						
+							</code></pre>
+					</textarea>
+				</section>
+
 
 			</section>
 
