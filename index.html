@@ -44,7 +44,8 @@
 			<section>
 				<!-- Motivation -->
 				<section>
-					<h2>Motivation</h2>
+					<h2>Motivation:</h2>
+					<h3>Need for speed</h3>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
@@ -235,7 +236,21 @@
 					[Source: Digilent](https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/reference-manual)
 					</textarea>
 				</section>
+				<section data-markdown>
+					<textarea data-template>
+						* <span style="color:darkorange">650MHz</span> dual-core Cortex-A9 processor
+						<!-- * DDR3 memory controller with 8 DMA channels -->
+						* Artix-7 familiy programmable logic
+							* 13300 logic slices, each with four 6-input LUTS and 8 flip-flops
+							* 630 KB of fast block RAM
+							* 220 DSP slices
+							<!-- * On-chip XADC -->
+							* Running at <span style="color:darkorange">100MHz</span>
 
+
+						[Source: Digilent](https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/reference-manual)
+					</textarea>
+				</section>
 				<section data-markdown>
 					<textarea data-template>
 					<img data-src="images/pynq-z1-block.png" height="500">
@@ -244,17 +259,6 @@
 					</textarea>
 				</section>
 
-				<section data-markdown>
-					<textarea data-template>
-						* 650MHz dual-core Cortex-A9 processor
-						* DDR3 memory controller with 8 DMA channels
-						* Artix-7 familiy programmable logic
-							* 13300 logic slices, each with four 6-input LUTS and 8 flip-flops
-							* 630 KB of fast block RAM
-							* 220 DSP slices
-							* On-chip XADC
-					</textarea>
-				</section>
 
 
 				<section data-markdown>
@@ -268,9 +272,10 @@
 			</section>
 
 			<section>
-				<section data-markdown data-background-color="#FFD700">
+				<section data-markdown data-background-color="#20B2AA">
 					<textarea data-template>
 						## High Level Synthesis
+						### It is like compiling for an architecture that doesn't yet exist!
 					</textarea>
 				</section>
 				<section data-markdown>
@@ -331,12 +336,11 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">Who</span> does offer FPGA-based services?							
+						### <span style="color:darksalmon">Who</span> does offer FPGA-based services?							
 						* Intel (Altera)
-							* Microsoft (Intel)
+							* Microsoft
 						* Both Intel and Xilinx
-							* Alibaba Cloud
-							* Nimbix
+							* Alibaba Cloud, Nimbix
 						* Xilinx
 							* AWS
 							* Baidu
@@ -462,7 +466,8 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						### Constructs that don't make sense in hardware
+						## <span style="color:darksalmon">What</span> you cannot do ...
+						#### Constructs that don't make sense in hardware
 
 						* System calls (e.g. `getc(), time())
 						* Dynamic memory usage
@@ -500,7 +505,8 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						### Example: Matrix Multiplication (N=128) 
+						#### Example: Matrix Multiplication $\mathbf{C}=\mathbf{A}\mathbf{B}$
+						##### $\mathbf{A}, \mathbf{B}, \mathbf{C} \in \mathbb{R}^{128\text{x}128}$
 
 						<pre><code class="cpp" data-trim data-noescape>
 							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
@@ -681,6 +687,16 @@
 
 				<section data-markdown>
 					<textarea data-template>
+						## <span style="color:darksalmon">What</span> is array partitioning?
+
+						<img data-src="images/partitioning.png">
+						
+						[[Source: DiCecco]](https://tspace.library.utoronto.ca/bitstream/1807/89598/3/DiCecco_Roberto_201806_MAS_thesis.pdf)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 						<pre><code class="txt" data-trim data-noescape>
 	+ Latency: 
 	* Summary: 
@@ -718,9 +734,100 @@
 					</textarea>
 				</section>
 
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">How</span> to build?
+
+						<pre><code class="tcl" data-trim data-noescape>
+							open_project matmult
+							set_top matmult_accel
+
+							add_files matmult.h
+
+							add_files matmult_accel.cpp \
+							-cflags "-D__SDSVHLS__ -std=c++0x"
+
+							add_files -tb matmult_tb.cpp \
+							-cflags "-D__SDSVHLS__ -std=c++0x"
+
+							open_solution "solution1"
+							set_part {zynq}
+							create_clock -period 10 -name default
+							set_clock_uncertainty 27.0%
+
+							# set_directive_pipeline -II 1 "mmult_hw/L2"
+							# set_directive_array_partition -type block -factor 16 -dim 2 "mmult_hw" a
+							# set_directive_array_partition -type block -factor 16 -dim 1 "mmult_hw" b
+
+							# run testbench
+							csim_design -clean 
+
+							csynth_design
+							export_design -format ip_catalog -description "Matrix multiplication IP" -display_name "matmult_accel"
+							exit
+						</code></pre>
+
+						<pre><code class="bash">
+						$ vitis_hls script.tcl
+						</code></pre>
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">How</span> to build?
+						
+						<img data-src="images/matmult.png">
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">How</span> to execute?
+						<pre><code class="python" data-trim data-noescape>
+
+							from pynq import (allocate, Overlay)
+							import numpy as np
+
+							# programs the FPGA
+							overlay = Overlay('./matmult.bit')
+
+							dma = overlay.dma
+							mmult_ip = overlay.accel
+
+							# allocates memory for the DMA transfers
+							DIM = 128
+							in_buffer = allocate(shape=(2, DIM, DIM), dtype=np.float32, cacheable=False)
+							out_buffer = allocate(shape=(DIM, DIM), dtype=np.float32, cacheable=False)
+
+							CTRL_REG = 0x00
+							AP_START = (1<<0) # bit 0
+							AUTO_RESTART = (1<<7) # bit 7
+
+							def run_kernel():
+							    dma.sendchannel.transfer(in_buffer)
+							    dma.recvchannel.transfer(out_buffer)
+							    mmult_ip.write(CTRL_REG, (AP_START | AUTO_RESTART))  # initialize the module
+							    dma.sendchannel.wait()
+								dma.recvchannel.wait()
+
+							# creates example matrices to evaluate the kernel
+							A = np.random.rand(DIM, DIM).astype(dtype=np.float32)
+							B = np.random.rand(DIM, DIM).astype(dtype=np.float32)
+
+							in_buffer[:] = np.stack((A, B))
+
+							run_kernel()
+
+							# verify correctness, Numpy is the golden standard
+							np.array_equal(A @ B, out_buffer)
+
+						</code></pre>	
+					</textarea>
+				</section>
 
 			</section>
-
 		</div>
 	</div>
 
