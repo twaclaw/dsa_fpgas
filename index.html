@@ -60,7 +60,8 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">Where</span> is it needed?
+						<!-- ## <span style="color:darksalmon">Where</span> is it needed? -->
+						## In which domains?
 						* AI
 						* Computer vision
 						* HPC
@@ -68,7 +69,8 @@
 							* Seismic imaging
 						* Finance
 						* Security
-						* Database (Graph DB, BigData queries, regex processing)
+						* Database 
+						<!-- (Graph DB, BigData queries, regex processing) -->
 						* ...
 						
 					</textarea>
@@ -77,8 +79,8 @@
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to achieve acceleration?
-						* A faster 🐎: increasing the clock frequency 👎
-							*	Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{P}^{3}$ [[Source: Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html)
+						* <span class="fragment strike">A faster 🐎: increasing the clock frequency</span> 👎
+							*	Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{P}^{3}$ [[Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html)
 						* <span class="fragment highlight-green">Parallelism</span> 👍
 						* Using a "custom", specialized, <span class="fragment highlight-green">Domain Specific Architecture (DSA)</span> 👍
 					</textarea>
@@ -228,7 +230,7 @@
 				<!-- How to use fpgas to accelerate  -->
 				<section data-markdown data-background-color="#FF69B4">
 					<textarea data-template>
-						## Building accelerators with FPGAs (Demo)
+						## Demo
 					</textarea>
 				</section>
 
@@ -293,7 +295,7 @@
 						* Memory Operations
 						* Write Back (WB)
 
-						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
@@ -313,7 +315,7 @@
 							ST		$R3, c
 						</code></pre>
 
-						[[Source: Intro to HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
@@ -325,7 +327,7 @@
 						#### (Processor)
 						<img data-src="images/fetch2.png">
 
-						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 				<section data-markdown>
@@ -334,7 +336,7 @@
 						####  (FPGA)
 						<img data-src="images/fpga-exec.png" height="400">
 
-						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
@@ -369,7 +371,7 @@
 				<section data-markdown>
 					<textarea data-template>
 					## <span style="color:darksalmon">Why</span> didn't it happen earlier?
-					#### Example: Edge detector implemented in Verilog
+					#### Example: edge detector implemented in Verilog
 
 					<pre><code class="verilog" data-trim data-noescape>
 					module edgeDetector
@@ -425,7 +427,7 @@
 					endmodule
 					</code></pre>
 
-					[[Source:verilogguide]](https://verilogguide.readthedocs.io/en/latest/verilog/fsm.html)
+					[Source: verilogguide](https://verilogguide.readthedocs.io/en/latest/verilog/fsm.html)
 					</textarea>
 				</section>
 
@@ -434,7 +436,7 @@
 						## <span style="color:darksalmon">Why</span> didn't it happen earlier?
 						<img data-src="images/time-to-market.png" height="400">
 
-						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
@@ -444,7 +446,7 @@
 
 						<img data-src="images/compile.png" height="480">
 
-						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 	
 					</textarea>
 				</section>
@@ -455,7 +457,7 @@
 
 						<img data-src="images/time-to-market-2.png" height="400">
 
-						[[Source: Xilinx]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 				<section data-background-image="images/coffee.jpg">
@@ -482,16 +484,18 @@
 						* Some pointers operations are not supported (e.g. arrays of pointers cannot point to additional pointers)
 						* Recursive functions
 
-						[[Source: Vivado HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Vivado HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
 				<section data-markdown>
 					<textarea data-template>
-						## Vivado HLS arbitrary precision types
+						### Vivado HLS arbitrary precision types
 
 						<pre><code class="cpp" data-trim data-noescape>
 						#include "ap_int.h"
+
+						//ap[u]int< W>
 
 						# define ap_uint<512> uint512_t;
 
@@ -501,7 +505,6 @@
 
 						<pre><code class="cpp" data-trim data-noescape>
 						#include "ap_fixed.h"
-
 
 						ap_ufixed<18,6,AP_RND> my_fixed_type;
 						</code></pre>
@@ -534,7 +537,7 @@
 							}
 						</code></pre>
 
-						[[github:twaclaw/matmult]](https://github.com/twaclaw/matmult)
+						[Source: github:twaclaw/matmult](https://github.com/twaclaw/matmult)
 					</textarea>
 				</section>
 
@@ -610,7 +613,7 @@
 						#### `y = (a * x) + b + c`
 						<img data-src="images/pipelining1.png" height="400">
 
-						[[Source: Intro to HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 				<section data-markdown>
@@ -619,7 +622,7 @@
 
 						<img data-src="images/pipelining2.png">
 						
-						[[Source: Intro to HLS]](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 			
@@ -699,7 +702,7 @@
 
 						<img data-src="images/partitioning.png">
 						
-						[[Source: DiCecco]](https://tspace.library.utoronto.ca/bitstream/1807/89598/3/DiCecco_Roberto_201806_MAS_thesis.pdf)
+						[[DiCecco]](https://tspace.library.utoronto.ca/bitstream/1807/89598/3/DiCecco_Roberto_201806_MAS_thesis.pdf)
 					</textarea>
 				</section>
 
@@ -835,6 +838,67 @@
 					</textarea>
 				</section>
 
+				<section data-markdown>
+					<textarea data-template>
+						## Additional [optimizations](https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/vitis_hls_optimization_techniques.html)
+						### Dataflow
+
+						<pre><code class="txt">
+							_____________
+							|             |<----- Input Vector from Global Memory
+							|  read_input |       __
+							|_____________|----->|  |
+							 _____________       |  | inStream
+							|             |<-----|__|
+							| compute_add |       __
+							|_____________|----->|  |
+							 _____________       |  | outStream
+							|              |<----|__|
+							| write_result |
+							|______________|-----> Output result to Global Memory
+		
+						</code></pre>
+						[Source: github:xilinx/Vitis_Accel_Examples](https://github.com/Xilinx/Vitis_Accel_Examples/tree/master/cpp_kernels/dataflow_stream)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						<pre><code class="cpp" data-noescape data-trim>
+							static hls::stream< unsigned int> inStream("input_stream");
+							static hls::stream< unsigned int> outStream("output_stream");
+							#pragma HLS STREAM variable = inStream depth = 32
+							#pragma HLS STREAM variable = outStream depth = 32
+							
+							#pragma HLS dataflow
+							// dataflow pragma instruct compiler to run following three APIs in parallel
+							read_input(in, inStream, size);
+							compute_add(inStream, outStream, inc, size);
+							write_result(out, outStream, size);
+						</code></pre>
+					</textarea>
+				</section>
+			
+				<section data-markdown>
+					<textarea data-template>
+						## Additional [optimizations](https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/vitis_hls_optimization_techniques.html)
+						###  Interface optimizations
+						<pre><code class="cpp" data-noescape data-trim>
+							void mmult(uint512_t * a, uint512_t * b, uint512_t * c)
+							{
+						  #pragma HLS INTERFACE s_axilite port = return bundle = control
+						  #pragma HLS INTERFACE s_axilite port = a bundle = control
+						  #pragma HLS INTERFACE s_axilite port = b bundle = control
+						  #pragma HLS INTERFACE s_axilite port = c bundle = control
+						  #pragma HLS INTERFACE m_axi port = a offset = slave bundle = gemm_a 
+						  #pragma HLS INTERFACE m_axi port = b offset = slave bundle = gemm_b 
+						  #pragma HLS INTERFACE m_axi port = c offset = slave bundle = gemm_c 
+
+						</code></pre>
+					</textarea>
+				</section>
+
+
 				<section data-background-image="images/coffee.jpg">
 					<h1>?</h1>
 				</section>
@@ -907,49 +971,85 @@
 					<textarea data-template>
 						## Roofline diagram
 						<img data-src="images/roofline0.png">
+
+						[Source: Wikipedia](https://en.wikipedia.org/wiki/Roofline_model)
 					</textarea>
 				</section>
+				<section data-markdown data-background-color="#FFEBCD">
+					<textarea data-template>
+					## Acceleration Guideline
+
+					* Profile your application
+					* Decide which part of the algorithm to offload to the FPGA		
+					* Optimize the kernel (loop unrolling, pipelining, dataflow, etc.)
+					* Optimize the interface
+					* Optimize the host application
+					</textarea>
+				</section>
+
 			</section>
 			<section>
 				<section data-markdown data-background-color="#DDA0DD">
 					<textarea data-template>
-						## A final example
+						## A final example:
+						### Vitis and AWS instances
 					</textarea>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
-						## Dataflow
-
-						<pre><code class="txt">
-							_____________
-							|             |<----- Input Vector from Global Memory
-							|  read_input |       __
-							|_____________|----->|  |
-							 _____________       |  | inStream
-							|             |<-----|__|
-							| compute_add |       __
-							|_____________|----->|  |
-							 _____________       |  | outStream
-							|              |<----|__|
-							| write_result |
-							|______________|-----> Output result to Global Memory
-		
-						</code></pre>
-						[[Source: github/xilinx]](https://github.com/Xilinx/Vitis_Accel_Examples/tree/master/cpp_kernels/dataflow_stream)
+					<img data-src="images/vitis.png">
+					
+					[Source: Xilinx](https://www.xilinx.com/products/design-tools/vitis/vitis-platform.html)
 					</textarea>
 				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Building with Vitis flow
+						* You don't need an FPGA instance for building
+
+						<pre><code class="bash" data-noescape data-trim>
+							# creates a  .xclbin
+							make TARGET={sw_emu,hw_emu,hw} DEVICE=$AWS_PLATFORM all
+
+							# creates a .awsxclbin
+							${VITIS_TOOLS}/create_vitis_afi.sh  -xclbin=./mmult.xclbin\
+							  -o=mmult -s3_bucket=vitiss3\
+							  -s3_dcp_key=mmult\
+							  -s3_logs_key=mmult
+						</code></pre>
+					</textarea>
+				</section>
+
+			
 
 				<section data-markdown>
 					<textarea data-template>
 						#### [AWS Example](https://github.com/Xilinx/Vitis-AWS-F1-Developer-Labs/tree/master/modules/module_03): Gaussian Blur
 						<img data-src="images/conv.png" height="400">
 
-						[[Source image: wikipedia]](https://en.wikipedia.org/wiki/Gaussian_blur)
+						[Source image: Wikipedia](https://en.wikipedia.org/wiki/Gaussian_blur)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Further reading
+
+						* [Vitis](https://www.xilinx.com/products/design-tools/vitis/vitis-platform.html)
+						* [https://github.com/aws/aws-fpga](https://github.com/aws/aws-fpga)
+						* [How to build a kernel for AWS](https://github.com/aws/aws-fpga/blob/master/Vitis/README.md)
+						* [https://github.com/Xilinx/Vitis_Accel_Examples](https://github.com/Xilinx/Vitis_Accel_Examples)
+						* [https://github.com/Xilinx/Vitis_Libraries](https://github.com/Xilinx/Vitis_Libraries)
+						* [http://www.pynq.io/](http://www.pynq.io/)
 					</textarea>
 				</section>
 				<section data-background-image="images/coffee.jpg">
 					<h1>?</h1>
 				</section>
+				<section data-background-image="images/coffee.jpg">
+					<h1>Thanks!</h1>
+				</section>
+			
 			</section>	
 			</section>
 		</div>
