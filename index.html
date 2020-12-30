@@ -80,7 +80,7 @@
 					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to achieve acceleration?
 						* <span class="fragment strike">A faster 🐎: increasing the clock frequency</span> 👎
-							*	Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{P}^{3}$ [[Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html)
+							*	Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{power}^{3}$ [[Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html)
 						* <span class="fragment highlight-green">Parallelism</span> 👍
 						* Using a "custom", specialized, <span class="fragment highlight-green">Domain Specific Architecture (DSA)</span> 👍
 					</textarea>
@@ -103,7 +103,7 @@
 
 				<section data-markdown>
 					<textarea data-template>
-					### Domain Specific Architectures
+					### Domain Specific Architectures (DSA)
 					* ASICs (e.g. TPUs)
 					* FPGAs						
 					</textarea>
@@ -134,7 +134,7 @@
 
 				<section data-markdown data-background-color="#FFFFFF">
 					<textarea data-template>
-					## Basic Unit: LUT
+					## Basic unit: LUT
 
 					<img data-src="images/fpga-lut.png">
 
@@ -144,7 +144,7 @@
 
 				<section data-markdown data-background-color="#FFFFFF">
 					<textarea data-template>
-					## Slices and Switchboxes 
+					## Slices and switchboxes 
 
 					<img data-src="images/fpga-slice.png">
 
@@ -154,7 +154,7 @@
 
 				<section data-markdown data-background-color="#FFFFFF">
 					<textarea data-template>
-					## Slices and Switchboxes 
+					## Slices and switchboxes 
 
 					<img data-src="images/fpga-structure.png" height="400">
 
@@ -164,7 +164,7 @@
 
 				<section data-markdown data-background-color="#FFFFFF">
 					<textarea data-template>
-					## Hardened Elements
+					## Hardened elements
 
 					<img data-src="images/fpga-processor.png">
 
@@ -174,7 +174,7 @@
 
 				<section data-markdown data-background-color="#FFFFFF">
 					<textarea data-template>
-					## Memory  Hierarchy
+					## Memory  hierarchy
 					<table style="font-size:20pt;">
 						<thead>
 							<tr>
@@ -280,13 +280,13 @@
 			<section>
 				<section data-markdown data-background-color="#20B2AA">
 					<textarea data-template>
-						## High Level Synthesis
-						### It is like compiling for an architecture that doesn't yet exist!
+						## Breaking free from architectural restrictions
 					</textarea>
 				</section>
-				<section data-markdown>
+	
+			<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">What</span> are FPGAs good at?
+						## <span style="color:darksalmon">What</span> is the main limitation?
 						<img data-src="images/fetch1.png" height="200">
 
 						* Instruction Fetch (IF)
@@ -301,9 +301,8 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">What</span> are FPGAs good at?
+						## <span style="color:darksalmon">What</span> is the main limitation?
 
-						#### (Processor)
 						<pre><code class="c" data-trim data-noescape>
 							z = a + b;
 						</code></pre>
@@ -322,21 +321,19 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">What</span> are FPGAs good at?
+						## <span style="color:darksalmon">What</span> is the main limitation?
 
-						#### (Processor)
 						<img data-src="images/fetch2.png">
 
-						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">What</span> are FPGAs good at?
-						####  (FPGA)
 						<img data-src="images/fpga-exec.png" height="400">
 
-						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
@@ -355,7 +352,7 @@
 					</textarea>
 				</section>
 
-
+<!-- 
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">Why</span> didn't it happen earlier?
@@ -429,7 +426,7 @@
 
 					[Source: verilogguide](https://verilogguide.readthedocs.io/en/latest/verilog/fsm.html)
 					</textarea>
-				</section>
+				</section> -->
 
 				<section data-markdown>
 					<textarea data-template>
@@ -440,6 +437,13 @@
 					</textarea>
 				</section>
 
+				<section data-markdown data-background-color="#20B2AA">
+					<textarea data-template>
+						## High Level Synthesis
+						### It is like compiling for an architecture that doesn't yet exist!
+					</textarea>
+				</section>
+	
 				<section data-markdown>
 					<textarea data-template>
 						## High Level Synthesis (HLS)
@@ -453,7 +457,7 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## High Level Synthesis (HLS)
+						## HLS
 
 						<img data-src="images/time-to-market-2.png" height="400">
 
@@ -476,11 +480,11 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">What</span> you cannot do ...
+						## C, C++ HLS limitations
 						#### Constructs that don't make sense in hardware
 
 						* System calls (e.g. `getc(), time())
-						* Dynamic memory usage
+						* Dynamic memory
 						* Some pointers operations are not supported (e.g. arrays of pointers cannot point to additional pointers)
 						* Recursive functions
 
@@ -490,7 +494,8 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						### Vivado HLS arbitrary precision types
+						## C, C++ HLS advantages
+						### HLS arbitrary precision types
 
 						<pre><code class="cpp" data-trim data-noescape>
 						#include "ap_int.h"
@@ -516,7 +521,7 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						#### Example: Matrix Multiplication $\mathbf{C}=\mathbf{A}\mathbf{B}$
+						#### Example: matrix multiplication $\mathbf{C}=\mathbf{A}\mathbf{B}$
 						##### $\mathbf{A}, \mathbf{B}, \mathbf{C} \in \mathbb{R}^{128\text{x}128}$
 
 						<pre><code class="cpp" data-trim data-noescape>
@@ -619,6 +624,7 @@
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">What</span> is pipelining?
+						### Initialization Interval II
 
 						<img data-src="images/pipelining2.png">
 						
@@ -673,7 +679,7 @@
 							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
 
 							#pragma HLS ARRAY_PARTITION variable = a factor = 16 dim = 2 block
-							#pragma HLS ARRAY_PARTITION variable = a factor = 16 dim = 1 block
+							#pragma HLS ARRAY_PARTITION variable = b factor = 16 dim = 1 block
 
 							L1:
 								for (int m = 0; m < N; ++m) {
@@ -748,6 +754,7 @@
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to build?
+						### Vitis_HLS (Vivado_HLS)
 
 						<pre><code class="tcl" data-trim data-noescape>
 							open_project matmult
@@ -788,6 +795,7 @@
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to build?
+						### Vivado
 						
 						<img data-src="images/matmult.png">
 					</textarea>
@@ -795,7 +803,7 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">How</span> to execute?
+						## <span style="color:darksalmon">How</span> to interact with the accelerator?
 						<pre><code class="python" data-trim data-noescape>
 
 							from pynq import (allocate, Overlay)
@@ -835,6 +843,8 @@
 							np.array_equal(A @ B, out_buffer)
 
 						</code></pre>	
+
+						Check out the [results](https://github.com/twaclaw/matmult/blob/master/notebooks/matmult.ipynb)
 					</textarea>
 				</section>
 
@@ -865,13 +875,14 @@
 				<section data-markdown>
 					<textarea data-template>
 						<pre><code class="cpp" data-noescape data-trim>
+							#include "hls_stream.h"
+
 							static hls::stream< unsigned int> inStream("input_stream");
 							static hls::stream< unsigned int> outStream("output_stream");
 							#pragma HLS STREAM variable = inStream depth = 32
 							#pragma HLS STREAM variable = outStream depth = 32
 							
 							#pragma HLS dataflow
-							// dataflow pragma instruct compiler to run following three APIs in parallel
 							read_input(in, inStream, size);
 							compute_add(inStream, outStream, inc, size);
 							write_result(out, outStream, size);
@@ -908,20 +919,20 @@
 				<!-- General methodology  -->
 				<section data-markdown data-background-color="#FFEBCD">
 					<textarea data-template>
-						## General Acceleration Methodology 
+						## General acceleration methodology 
 						### An overview
 					</textarea>
 				</section>
 
 				<section data-background-color="#FFEBCD">
-					<h2>Arithmetic Intensity ($\text{AI}$) </h2>
+					<h2>Arithmetic Intensity ($\text{I}$) </h2>
 
 						\[\begin{aligned}
 						\text{FLOPS} &amp; = \frac{\text{#FLOP}}{\text{time(s)}}\\
 						\\
 						 &amp; = \frac{\text{#FLOP}}{\text{Byte}} \cdot \frac{\text{Byte}}{\text{s}} \\
 						 \\
-						 &amp; = \text{AI} \cdot \text{BW} \\
+						 &amp; = \text{I} \cdot \text{BW} \\
 						\end{aligned} \]
 				</section>
 
@@ -932,7 +943,7 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>$\text{AI}$</th>
+									<th>$\text{I}$</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -958,13 +969,13 @@
 				</section>
 
 				<section data-background-color="#FFEBCD">
-					<h2>Arithmetic Intensity ($\text{AI}$) </h2>
+					<h2>Arithmetic Intensity ($\text{I}$) </h2>
 						\[\begin{aligned}
-						 \text{FLOPS} &amp; = \text{AI} \cdot \text{BW} \\
+						 \text{FLOPS} &amp; = \text{I} \cdot \text{BW} \\
 						\\
-						 \log(\text{FLOPS}) &amp; = \log(\text{AI} \cdot \text{BW}) \\
+						 \log(\text{FLOPS}) &amp; = \log(\text{I} \cdot \text{BW}) \\
 						 \\
-						 \log(\text{FLOPS}) &amp; = \log(\text{AI}) + \log(\text{BW}) \\
+						 \log(\text{FLOPS}) &amp; = \log(\text{I}) + \log(\text{BW}) \\
 						\end{aligned} \]
 				</section>
 				<section data-markdown data-background-color="#FFEBCD">
@@ -972,7 +983,7 @@
 						## Roofline diagram
 						<img data-src="images/roofline0.png">
 
-						[Source: Wikipedia](https://en.wikipedia.org/wiki/Roofline_model)
+						[[S. Williams 2008](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-164.html), [Wikipedia](https://en.wikipedia.org/wiki/Roofline_model)]
 					</textarea>
 				</section>
 				<section data-markdown data-background-color="#FFEBCD">
