@@ -36,7 +36,7 @@
 			<!-- Beginning of slides -->
 			<!-- ----- -->
 			<section>
-				<h2>Acceleration of Algorithms with FPGAs 101</h2>
+				<h2>Acceleration of algorithms with FPGAs 101</h2>
 				<p>Diego Sandoval</p>
 				<p>2021</p>
 			</section>
@@ -45,7 +45,7 @@
 				<!-- Motivation -->
 				<section>
 					<h2>Motivation:</h2>
-					<h3>Need for speed</h3>
+					<h3 class="fragment" style="color:darksalmon">Need for speed</h3>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
@@ -80,7 +80,7 @@
 					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to achieve acceleration?
 						* <span class="fragment strike">A faster 🐎: increasing the clock frequency</span> 👎
-							*	Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{power}^{3}$ [[Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html)
+							<!-- *	Power performance dynamic: $\uparrow f_{\text{clk}} \sim \text{power}^{3}$ [[Intel]](https://software.intel.com/content/www/us/en/develop/articles/vectorization-a-key-tool-to-improve-performance-on-modern-cpus.html) -->
 						* <span class="fragment highlight-green">Parallelism</span> 👍
 						* Using a "custom", specialized, <span class="fragment highlight-green">Domain Specific Architecture (DSA)</span> 👍
 					</textarea>
@@ -272,7 +272,7 @@
 						## Examples
 
 						*	[PYNQ Hello World: image resizing](https://github.com/Xilinx/PYNQ-HelloWorld)
-						*   [Binarized NN: CIFAR image recognition](https://github.com/Xilinx/BNN-PYNQ)
+						*   [Binarized/Quantized NN: CIFAR image recognition](https://github.com/Xilinx/BNN-PYNQ)
 					</textarea>
 				</section>
 			</section>
@@ -295,7 +295,7 @@
 						* Memory Operations
 						* Write Back (WB)
 
-						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
@@ -339,7 +339,8 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						### <span style="color:darksalmon">Who</span> does offer FPGA-based services?							
+						<!-- ### <span style="color:darksalmon">Who</span> does offer FPGA-based services?							 -->
+						### FPGA-based services are relatively new
 						* Intel (Altera)
 							* Microsoft
 						* Both Intel and Xilinx
@@ -433,13 +434,13 @@
 						## <span style="color:darksalmon">Why</span> didn't it happen earlier?
 						<img data-src="images/time-to-market.png" height="400">
 
-						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 
 				<section data-markdown data-background-color="#20B2AA">
 					<textarea data-template>
-						## High Level Synthesis
+						## High Level Synthesis (HLS)
 						### It is like compiling for an architecture that doesn't yet exist!
 					</textarea>
 				</section>
@@ -450,7 +451,7 @@
 
 						<img data-src="images/compile.png" height="480">
 
-						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 	
 					</textarea>
 				</section>
@@ -461,7 +462,7 @@
 
 						<img data-src="images/time-to-market-2.png" height="400">
 
-						[Source: Xilinx](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
 					</textarea>
 				</section>
 				<section data-background-image="images/coffee.jpg">
@@ -475,6 +476,7 @@
 				<section data-markdown data-background-color="#F5FFFA">
 					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to do it?
+						### Example of kernel optimization
 					</textarea>
 				</section>
 
@@ -483,7 +485,7 @@
 						## C, C++ HLS limitations
 						#### Constructs that don't make sense in hardware
 
-						* System calls (e.g. `getc(), time())
+						* System calls (e.g. `getc()`, `time()`)
 						* Dynamic memory
 						* Some pointers operations are not supported (e.g. arrays of pointers cannot point to additional pointers)
 						* Recursive functions
@@ -526,13 +528,10 @@
 
 						<pre><code class="cpp" data-trim data-noescape>
 							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
-							L1:
-								for (int m = 0; m < N; ++m) {
-								L2:
-								for (int n = 0; n < N; ++n) {
+							L1:for (int m = 0; m < N; ++m) {
+								L2:for (int n = 0; n < N; ++n) {
 									T sum = 0;
-								L3:
-									for (int k = 0; k < N; ++k)
+									L3:for (int k = 0; k < N; ++k)
 										sum += a[m][k] * b[k][n];
 
 									out[m][n] = sum;
@@ -592,14 +591,11 @@
 
 						<pre><code class="cpp" data-trim data-noescape>
 							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
-							L1:
-								for (int m = 0; m < N; ++m) {
-								L2:
-								for (int n = 0; n < N; ++n) {
+							L1:for (int m = 0; m < N; ++m) {
+								L2:for (int n = 0; n < N; ++n) {
 							#pragma HLS PIPELINE II = 1
 									T sum = 0;
-								L3:
-									for (int k = 0; k < N; ++k)
+									L3:for (int k = 0; k < N; ++k)
 										sum += a[m][k] * b[k][n];
 
 									out[m][n] = sum;
@@ -681,14 +677,11 @@
 							#pragma HLS ARRAY_PARTITION variable = a factor = 16 dim = 2 block
 							#pragma HLS ARRAY_PARTITION variable = b factor = 16 dim = 1 block
 
-							L1:
-								for (int m = 0; m < N; ++m) {
-								L2:
-								for (int n = 0; n < N; ++n) {
+							L1:for (int m = 0; m < N; ++m) {
+								L2:for (int n = 0; n < N; ++n) {
 							#pragma HLS PIPELINE II = 1
 									T sum = 0;
-								L3:
-									for (int k = 0; k < N; ++k)
+									L3:for (int k = 0; k < N; ++k)
 										sum += a[m][k] * b[k][n];
 
 									out[m][n] = sum;
@@ -795,8 +788,6 @@
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to build?
-						### Vivado
-						
 						<img data-src="images/matmult.png">
 					</textarea>
 				</section>
@@ -901,9 +892,9 @@
 						  #pragma HLS INTERFACE s_axilite port = a bundle = control
 						  #pragma HLS INTERFACE s_axilite port = b bundle = control
 						  #pragma HLS INTERFACE s_axilite port = c bundle = control
-						  #pragma HLS INTERFACE m_axi port = a offset = slave bundle = gemm_a 
-						  #pragma HLS INTERFACE m_axi port = b offset = slave bundle = gemm_b 
-						  #pragma HLS INTERFACE m_axi port = c offset = slave bundle = gemm_c 
+						  #pragma HLS INTERFACE m_axi port = a bundle = gemm_a 
+						  #pragma HLS INTERFACE m_axi port = b bundle = gemm_b 
+						  #pragma HLS INTERFACE m_axi port = c bundle = gemm_c 
 
 						</code></pre>
 					</textarea>
@@ -925,7 +916,7 @@
 				</section>
 
 				<section data-background-color="#FFEBCD">
-					<h2>Arithmetic Intensity ($\text{I}$) </h2>
+					<h2>Arithmetic Intensity $\text{I}$ </h2>
 
 						\[\begin{aligned}
 						\text{FLOPS} &amp; = \frac{\text{#FLOP}}{\text{time(s)}}\\
@@ -1017,13 +1008,13 @@
 				<section data-markdown>
 					<textarea data-template>
 						## Building with Vitis flow
-						* You don't need an FPGA instance for building
+						You don't need an FPGA instance for building
 
 						<pre><code class="bash" data-noescape data-trim>
 							# creates a  .xclbin
 							make TARGET={sw_emu,hw_emu,hw} DEVICE=$AWS_PLATFORM all
 
-							# creates a .awsxclbin
+							# creates an .awsxclbin
 							${VITIS_TOOLS}/create_vitis_afi.sh  -xclbin=./mmult.xclbin\
 							  -o=mmult -s3_bucket=vitiss3\
 							  -s3_dcp_key=mmult\
