@@ -103,7 +103,7 @@
 
 				<section data-markdown>
 					<textarea data-template>
-					### Domain Specific Architectures (DSA)
+					### Domain Specific Architectures (DSAs)
 					* ASICs (e.g. TPUs)
 					* FPGAs						
 					</textarea>
@@ -272,7 +272,7 @@
 						## Examples
 
 						*	[PYNQ Hello World: image resizing](https://github.com/Xilinx/PYNQ-HelloWorld)
-						*   [Binarized/Quantized NN: CIFAR image recognition](https://github.com/Xilinx/BNN-PYNQ)
+						*   [Binarized/Quantized NN](https://github.com/Xilinx/BNN-PYNQ) ([CIFAR-10](https://en.wikipedia.org/wiki/CIFAR-10) dataset)
 					</textarea>
 				</section>
 			</section>
@@ -502,7 +502,7 @@
 						<pre><code class="cpp" data-trim data-noescape>
 						#include "ap_int.h"
 
-						//ap[u]int< W>
+						//ap[u]int<&#8205;W>
 
 						# define ap_uint<512> uint512_t;
 
@@ -512,6 +512,8 @@
 
 						<pre><code class="cpp" data-trim data-noescape>
 						#include "ap_fixed.h"
+
+						//ap_[u]fixed<&#8205;W,I,Q,O,N>,
 
 						ap_ufixed<18,6,AP_RND> my_fixed_type;
 						</code></pre>
@@ -526,8 +528,8 @@
 						#### Example: matrix multiplication $\mathbf{C}=\mathbf{A}\mathbf{B}$
 						##### $\mathbf{A}, \mathbf{B}, \mathbf{C} \in \mathbb{R}^{128\text{x}128}$
 
-						<pre><code class="cpp" data-trim data-noescape>
-							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
+						<pre><code class="c++" data-trim data-noescape>
+							template <&#8205;typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
 							L1:for (int m = 0; m < N; ++m) {
 								L2:for (int n = 0; n < N; ++n) {
 									T sum = 0;
@@ -590,7 +592,7 @@
 						#### Pipelining of L3 is automatic
 
 						<pre><code class="cpp" data-trim data-noescape>
-							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
+							template <&#8205;typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
 							L1:for (int m = 0; m < N; ++m) {
 								L2:for (int n = 0; n < N; ++n) {
 							#pragma HLS PIPELINE II = 1
@@ -682,8 +684,7 @@
 						## Optimization 2: array partitioning 
 
 						<pre><code class="cpp" data-trim data-noescape>
-							template <typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
-
+							template <&#8205;typename T> void kernel_mmult(T a[N][N], T b[N][N], T out[N][N]) {
 							#pragma HLS ARRAY_PARTITION variable = a factor = 16 dim = 2 block
 							#pragma HLS ARRAY_PARTITION variable = b factor = 16 dim = 1 block
 
@@ -839,6 +840,11 @@
 					</textarea>
 				</section>
 
+				<section data-background-image="images/coffee.jpg">
+					<h1>?</h1>
+				</section>
+
+
 				<section data-markdown>
 					<textarea data-template>
 						## Additional [optimizations](https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/vitis_hls_optimization_techniques.html)
@@ -868,8 +874,8 @@
 						<pre><code class="cpp" data-noescape data-trim>
 							#include "hls_stream.h"
 
-							static hls::stream< unsigned int> inStream("input_stream");
-							static hls::stream< unsigned int> outStream("output_stream");
+							static hls::stream<&#8205;unsigned int> inStream("input_stream");
+							static hls::stream<&#8205;unsigned int> outStream("output_stream");
 							#pragma HLS STREAM variable = inStream depth = 32
 							#pragma HLS STREAM variable = outStream depth = 32
 							
@@ -901,9 +907,6 @@
 				</section>
 
 
-				<section data-background-image="images/coffee.jpg">
-					<h1>?</h1>
-				</section>
 			</section>
 
 			<section>
@@ -977,6 +980,15 @@
 						[[S. Williams 2008](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-164.html), [Wikipedia](https://en.wikipedia.org/wiki/Roofline_model)]
 					</textarea>
 				</section>
+				<section data-markdown data-background-color="#FFEBCD">
+					<textarea data-template>
+						## Roofline diagram
+						<img data-src="images/roofline-fpga.png">
+
+						[Source: FINN](https://arxiv.org/abs/1612.07119)
+					</textarea>
+				</section>
+
 				<section data-markdown data-background-color="#FFEBCD">
 					<textarea data-template>
 					## Acceleration Guideline
