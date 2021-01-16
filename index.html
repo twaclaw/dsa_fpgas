@@ -50,8 +50,8 @@
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">Why</span> is acceleration required?
-						* Latency
-						* Throughput
+						* <span style="color:darksalmon">Latency</span>
+						* <span style="color:darksalmon">Throughput</span>
 						* Reducing costs
 						* Reducing energy consumption
 						* Increasing productivity
@@ -86,16 +86,6 @@
 					</textarea>
 				</section>
 
-				<section data-markdown>
-					<textarea data-template>
-					### Parallelism 
-
-					* [Data Parallelism](https://en.wikipedia.org/wiki/Data_parallelism): 
-					Doing the same task on different components of data. SIMD, GPUs.
-					* [Task Parallelism](https://en.wikipedia.org/wiki/Task_parallelism):
-					 Doing different tasks at the same time. Concurrency. Pipelining. 
-					</textarea>
-				</section>
 				<!-- 
 				<section data-background-color="#228b22">
 					<h2 class="fragment strike">Domain Specific Architectures (DAS)</h2>
@@ -106,6 +96,17 @@
 					### Domain Specific Architectures (DSAs)
 					* ASICs (e.g. TPUs)
 					* FPGAs						
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+					### Parallelism 
+
+					* [Data Parallelism](https://en.wikipedia.org/wiki/Data_parallelism): 
+					Doing the same task on different components of data. SIMD, GPUs.
+					* [Task Parallelism](https://en.wikipedia.org/wiki/Task_parallelism):
+					 Doing different tasks at the same time. Concurrency. Pipelining. 
 					</textarea>
 				</section>
 			</section>
@@ -230,7 +231,7 @@
 				<!-- How to use fpgas to accelerate  -->
 				<section data-markdown data-background-color="#FF69B4">
 					<textarea data-template>
-						## Demo
+						## Appetizer 
 					</textarea>
 				</section>
 
@@ -283,8 +284,8 @@
 						## Breaking free from architectural restrictions
 					</textarea>
 				</section>
-	
-			<section data-markdown>
+
+				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">What</span> is the main limitation?
 						<img data-src="images/fetch1.png" height="200">
@@ -353,7 +354,7 @@
 					</textarea>
 				</section>
 
-<!-- 
+				<!-- 
 				<section data-markdown>
 					<textarea data-template>
 						## <span style="color:darksalmon">Why</span> didn't it happen earlier?
@@ -444,7 +445,7 @@
 						### It is like compiling for an architecture that doesn't yet exist!
 					</textarea>
 				</section>
-	
+
 				<section data-markdown>
 					<textarea data-template>
 						## High Level Synthesis (HLS)
@@ -463,20 +464,6 @@
 						<img data-src="images/time-to-market-2.png" height="400">
 
 						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
-					</textarea>
-				</section>
-				<section data-background-image="images/coffee.jpg">
-					<h1>?</h1>
-				</section>
-			
-			</section>
-
-			<section>
-				<!-- Example mmult HLS -->
-				<section data-markdown data-background-color="#F5FFFA">
-					<textarea data-template>
-						## <span style="color:darksalmon">How</span> to do it?
-						### Example of kernel optimization
 					</textarea>
 				</section>
 
@@ -518,6 +505,26 @@
 						ap_ufixed<18,6,AP_RND> my_fixed_type;
 						</code></pre>
 
+					</textarea>
+				</section>
+
+
+				<section data-background-image="images/coffee.jpg">
+					<h1>?</h1>
+				</section>
+
+			</section>
+
+			<section>
+				<section data-background-image="images/coffee_cup.jpg">
+					<h1>3-minute break? </h1>
+				</section>
+
+				<!-- Example mmult HLS -->
+				<section data-markdown data-background-color="#F5FFFA">
+					<textarea data-template>
+						## <span style="color:darksalmon">How</span> to do it?
+						### Example of kernel optimization
 					</textarea>
 				</section>
 
@@ -588,6 +595,27 @@
 
 				<section data-markdown>
 					<textarea data-template>
+						## <span style="color:darksalmon">What</span> is pipelining?
+						#### `y = (a * x) + b + c`
+						<img data-src="images/pipelining1.png" height="400">
+
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">What</span> is pipelining?
+						### Initialization Interval II
+
+						<img data-src="images/pipelining2.png">
+						
+						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 						## Optimization 1: pipelining 
 						#### Pipelining of L3 is automatic
 
@@ -610,26 +638,7 @@
 						<!-- [[github:twaclaw/matmult]](https://github.com/twaclaw/matmult) -->
 					</textarea>
 				</section>
-				<section data-markdown>
-					<textarea data-template>
-						## <span style="color:darksalmon">What</span> is pipelining?
-						#### `y = (a * x) + b + c`
-						<img data-src="images/pipelining1.png" height="400">
 
-						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
-					</textarea>
-				</section>
-				<section data-markdown>
-					<textarea data-template>
-						## <span style="color:darksalmon">What</span> is pipelining?
-						### Initialization Interval II
-
-						<img data-src="images/pipelining2.png">
-						
-						[Source: Intro to HLS](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_3/ug902-vivado-high-level-synthesis.pdf)
-					</textarea>
-				</section>
-			
 				<section data-markdown>
 					<textarea data-template>
 						<pre><code class="txt" data-trim data-noescape>
@@ -747,54 +756,6 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## <span style="color:darksalmon">How</span> to build?
-						### Vitis_HLS (Vivado_HLS)
-
-						<pre><code class="tcl" data-trim data-noescape>
-							open_project matmult
-							set_top matmult_accel
-
-							add_files matmult.h
-
-							add_files matmult_accel.cpp \
-							-cflags "-D__SDSVHLS__ -std=c++0x"
-
-							add_files -tb matmult_tb.cpp \
-							-cflags "-D__SDSVHLS__ -std=c++0x"
-
-							open_solution "solution1"
-							set_part {zynq}
-							create_clock -period 10 -name default
-							set_clock_uncertainty 27.0%
-
-							# set_directive_pipeline -II 1 "mmult_hw/L2"
-							# set_directive_array_partition -type block -factor 16 -dim 2 "mmult_hw" a
-							# set_directive_array_partition -type block -factor 16 -dim 1 "mmult_hw" b
-
-							# run testbench
-							csim_design -clean 
-
-							csynth_design
-							export_design -format ip_catalog -description "Matrix multiplication IP" -display_name "matmult_accel"
-							exit
-						</code></pre>
-
-						<pre><code class="bash">
-						$ vitis_hls script.tcl
-						</code></pre>
-
-					</textarea>
-				</section>
-
-				<section data-markdown>
-					<textarea data-template>
-						## <span style="color:darksalmon">How</span> to build?
-						<img data-src="images/matmult.png">
-					</textarea>
-				</section>
-
-				<section data-markdown>
-					<textarea data-template>
 						## <span style="color:darksalmon">How</span> to interact with the accelerator?
 						<pre><code class="python" data-trim data-noescape>
 
@@ -886,7 +847,7 @@
 						</code></pre>
 					</textarea>
 				</section>
-			
+
 				<section data-markdown>
 					<textarea data-template>
 						## Additional [optimizations](https://www.xilinx.com/html_docs/xilinx2020_2/vitis_doc/vitis_hls_optimization_techniques.html)
@@ -921,13 +882,13 @@
 				<section data-background-color="#FFEBCD">
 					<h2>Arithmetic Intensity $\text{I}$ </h2>
 
-						\[\begin{aligned}
-						\text{FLOPS} &amp; = \frac{\text{#FLOP}}{\text{time(s)}}\\
-						\\
-						 &amp; = \frac{\text{#FLOP}}{\text{Byte}} \cdot \frac{\text{Byte}}{\text{s}} \\
-						 \\
-						 &amp; = \text{I} \cdot \text{BW} \\
-						\end{aligned} \]
+					\[\begin{aligned}
+					\text{FLOPS} &amp; = \frac{\text{#FLOP}}{\text{time(s)}}\\
+					\\
+					&amp; = \frac{\text{#FLOP}}{\text{Byte}} \cdot \frac{\text{Byte}}{\text{s}} \\
+					\\
+					&amp; = \text{I} \cdot \text{BW} \\
+					\end{aligned} \]
 				</section>
 
 				<section data-markdown data-background-color="#FFEBCD">
@@ -964,13 +925,13 @@
 
 				<section data-background-color="#FFEBCD">
 					<h2>Arithmetic Intensity ($\text{I}$) </h2>
-						\[\begin{aligned}
-						 \text{FLOPS} &amp; = \text{I} \cdot \text{BW} \\
-						\\
-						 \log(\text{FLOPS}) &amp; = \log(\text{I} \cdot \text{BW}) \\
-						 \\
-						 \log(\text{FLOPS}) &amp; = \log(\text{I}) + \log(\text{BW}) \\
-						\end{aligned} \]
+					\[\begin{aligned}
+					\text{FLOPS} &amp; = \text{I} \cdot \text{BW} \\
+					\\
+					\log(\text{FLOPS}) &amp; = \log(\text{I} \cdot \text{BW}) \\
+					\\
+					\log(\text{FLOPS}) &amp; = \log(\text{I}) + \log(\text{BW}) \\
+					\end{aligned} \]
 				</section>
 				<section data-markdown data-background-color="#FFEBCD">
 					<textarea data-template>
@@ -991,7 +952,8 @@
 
 				<section data-markdown data-background-color="#FFEBCD">
 					<textarea data-template>
-					## Acceleration Guideline
+					## Acceleration guideline
+					### Know thy application
 
 					* Profile your application
 					* Decide which part of the algorithm to offload to the FPGA		
@@ -1023,6 +985,7 @@
 						You don't need an FPGA instance for building
 
 						<pre><code class="bash" data-noescape data-trim>
+							# the compiler is called v++
 							# creates a  .xclbin
 							make TARGET={sw_emu,hw_emu,hw} DEVICE=$AWS_PLATFORM all
 
@@ -1034,8 +997,6 @@
 						</code></pre>
 					</textarea>
 				</section>
-
-			
 
 				<section data-markdown>
 					<textarea data-template>
@@ -1063,8 +1024,61 @@
 				<section data-background-image="images/coffee.jpg">
 					<h1>Thanks!</h1>
 				</section>
-			
-			</section>	
+
+				<section data-background-image="images/coffee.jpg">
+					<h1>Extra</h1>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">How</span> to build?
+						### Vitis_HLS (Vivado_HLS)
+
+						<pre><code class="tcl" data-trim data-noescape>
+							open_project matmult
+							set_top matmult_accel
+
+							add_files matmult.h
+
+							add_files matmult_accel.cpp \
+							-cflags "-D__SDSVHLS__ -std=c++0x"
+
+							add_files -tb matmult_tb.cpp \
+							-cflags "-D__SDSVHLS__ -std=c++0x"
+
+							open_solution "solution1"
+							set_part {zynq}
+							create_clock -period 10 -name default
+							set_clock_uncertainty 27.0%
+
+							# set_directive_pipeline -II 1 "mmult_hw/L2"
+							# set_directive_array_partition -type block -factor 16 -dim 2 "mmult_hw" a
+							# set_directive_array_partition -type block -factor 16 -dim 1 "mmult_hw" b
+
+							# run testbench
+							csim_design -clean 
+
+							csynth_design
+							export_design -format ip_catalog -description "Matrix multiplication IP" -display_name "matmult_accel"
+							exit
+						</code></pre>
+
+						<pre><code class="bash">
+						$ vitis_hls script.tcl
+						</code></pre>
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## <span style="color:darksalmon">How</span> to build?
+						<img data-src="images/matmult.png">
+					</textarea>
+				</section>
+
+
+			</section>
 			</section>
 		</div>
 	</div>
@@ -1079,6 +1093,7 @@
 		// - https://revealjs.com/config/
 		Reveal.initialize({
 			hash: true,
+			progress: false,
 
 			// Learn about plugins: https://revealjs.com/plugins/
 			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
